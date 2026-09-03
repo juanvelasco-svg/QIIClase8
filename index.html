@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Química II | Clase 8: Hidrólisis de Sales</title>
+
+<!-- Carga de MathJax -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+    :root {
+        --QII-gold: #D97706;
+        --QII-dark: #022C22;
+        --QII-blue: #064E3B;
+        --QII-light: #10B981;
+        --accent: #DC2626;
+        --accent-orange: #F59E0B;
+        --accent-purple: #7C3AED;
+        --text: #111827;
+        --white: #ffffff;
+        --sand: #FEF3C7;
+        --shadow: rgba(0, 0, 0, 0.25);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    ul:not(.map-tree), ol { padding-left: 2.4rem; margin: 0.5rem 0 1rem; }
+    ul:not(.map-tree) { list-style: none; }
+    ul:not(.map-tree) li, ol li { margin: 0.45rem 0; }
+
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    header { background: linear-gradient(135deg, var(--QII-dark) 0%, var(--QII-blue) 100%); color: var(--white); padding: 2rem; text-align: center; box-shadow: 0 6px 20px var(--shadow); position: relative; overflow: hidden; border-bottom: 5px solid var(--QII-gold); }
+    .logo-container { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .logo-qii { width: 120px; height: auto; background: var(--white); border-radius: 50%; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); color: var(--QII-gold); }
+    .subtitle { font-size: 1.2rem; opacity: 0.95; font-weight: 300; }
+    .nav-container { background: var(--QII-dark); padding: 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px var(--shadow); border-bottom: 2px solid var(--QII-gold); }
+    .nav-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; max-width: 1400px; margin: 0 auto; }
+    .nav-btn { background: var(--QII-blue); color: var(--white); border: 1px solid var(--QII-gold); padding: 0.8rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 3px 8px rgba(0,0,0,0.2); font-size: 0.95rem; }
+    .nav-btn:hover, .nav-btn.active { background: var(--QII-gold); color: var(--QII-dark); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(234, 179, 8, 0.4); }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .section { display: none; animation: fadeIn 0.5s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--white); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 8px 24px var(--shadow); border-left: 6px solid var(--QII-gold); transition: transform 0.3s ease; }
+    .card:hover { transform: translateY(-3px); }
+    h2 { color: var(--QII-blue); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 3px solid var(--QII-gold); display: flex; align-items: center; gap: 0.8rem; font-size: 2rem; }
+    h3 { color: var(--QII-light); margin: 1.5rem 0 1rem; font-size: 1.5rem; }
+    p { margin-bottom: 1rem; }
+    .molecule-img { max-width: 100%; max-height: 450px; height: auto; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 12px var(--shadow); object-fit: contain; }
+    .img-container { text-align: center; margin: 2rem 0; background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px dashed var(--QII-gold); }
+    .img-caption { font-style: italic; color:#666; margin-top: 0.5rem; font-size: 0.95rem; }
+    .calculator { background: linear-gradient(135deg, #fefcbf 0%, #fef3c7 100%); border: 3px solid var(--QII-gold); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .calc-title { color: var(--QII-dark); font-size: 1.6rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; font-weight: bold; }
+    .calc-input-group { margin: 1rem 0; }
+    .calc-input-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--QII-dark); }
+    .calc-input-group input, .calc-input-group select { width: 100%; padding: 0.8rem; border: 2px solid var(--QII-gold); border-radius: 8px; font-size: 1rem; transition: border-color 0.3s; background: #fff; }
+    .calc-input-group input:focus, .calc-input-group select:focus { outline: none; border-color: var(--QII-blue); }
+    .calc-button { background: var(--QII-dark); color: var(--QII-gold); border: 2px solid var(--QII-gold); padding: 1rem 2rem; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 12px var(--shadow); }
+    .calc-button:hover { background: var(--QII-gold); color: var(--QII-dark); transform: translateY(-2px); }
+    .calc-result { background: var(--white); border-left: 5px solid var(--accent); padding: 1.5rem; margin-top: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
+    .calc-result.show { display: block; animation: slideIn 0.5s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px var(--shadow); }
+    th { background: linear-gradient(135deg, var(--QII-dark) 0%, var(--QII-blue) 100%); color: var(--QII-gold); padding: 1.2rem; text-align: left; font-weight: 600; }
+    td { padding: 1rem 1.2rem; border-bottom: 1px solid #e2e8f0; transition: background 0.3s; }
+    tr:hover td { background: #fefcbf; }
+    .info-box { background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%); border-left: 5px solid #3182ce; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .tip-box { background: linear-gradient(135deg, #fefcbf 0%, #fef3c7 100%); border-left: 5px solid var(--QII-gold); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .bio-box { background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); border-left: 5px solid #319795; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .pharma-box { background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); border-left: 5px solid var(--accent); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .problem-box { background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%); border-left: 5px solid #38a169; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    details.solution { margin-top: 1rem; background: #f8fafc; border: 2px solid var(--QII-light); border-radius: 10px; padding: 0.8rem 1.2rem; }
+    details.solution summary { cursor: pointer; font-weight: 700; color: var(--QII-blue); }
+    details.solution[open] summary { margin-bottom: 0.8rem; border-bottom: 1px dashed var(--QII-light); padding-bottom: .4rem; }
+    .mnemonic-card { background: linear-gradient(135deg, #fff5f5 0%, #feebc8 100%); border: 3px solid var(--accent-orange); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; position: relative; overflow: hidden; }
+    .mnemonic-title { color: var(--accent-orange); font-weight: 700; margin-bottom: 0.8rem; font-size: 1.2rem; }
+    .glossary-term { background: var(--white); border: 2px solid var(--QII-gold); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; cursor: pointer; transition: all 0.3s; }
+    .glossary-term:hover { background: #fefcbf; transform: translateX(5px); }
+    .glossary-definition { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--QII-gold); }
+    .glossary-definition.show { display: block; animation: fadeIn 0.3s ease; }
+    .error-card { background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%); border-left: 5px solid var(--accent); padding: 1.5rem; margin: 1rem 0; border-radius: 0 12px 12px 0; }
+    .error-title { color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+    .correction { background: #c6f6d5; border-left: 3px solid #38a169; padding: 1rem; margin-top: 1rem; border-radius: 0 8px 8px 0; }
+    .quiz-container { background: linear-gradient(135deg, var(--QII-dark) 0%, var(--QII-blue) 100%); color: var(--white); border-radius: 16px; padding: 2rem; margin: 2rem 0; border: 3px solid var(--QII-gold); }
+    .quiz-question-card { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--QII-gold); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .quiz-question { font-size: 1.2rem; margin-bottom: 1rem; font-weight: 600; color: var(--QII-gold); }
+    .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .quiz-option { background: var(--white); color: var(--text); border: 2px solid transparent; padding: 0.9rem 1.2rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; text-align: left; }
+    .quiz-option:hover:not(:disabled) { border-color: var(--QII-gold); transform: translateY(-2px); }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.9; }
+    .quiz-option.correct { background: #38a169; color: white; border-color: #22543d; }
+    .quiz-option.incorrect { background: #e53e3e; color: white; border-color: #742a2a; }
+    .quiz-explanation { margin-top: 0.8rem; padding: 0.8rem; background: rgba(255,255,255,0.15); border-radius: 6px; font-size: 0.95rem; color: #fff; display: none; }
+    .quiz-progress { max-width: 720px; margin: 0 auto 1rem; }
+    .quiz-progress-bar-bg { height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
+    .quiz-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QII-gold), var(--accent-orange)); transition: width 0.4s; }
+    .quiz-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .quiz-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; background: var(--QII-light); }
+    .footer { background: var(--QII-dark); color: var(--white); text-align: center; padding: 2.5rem; margin-top: 3rem; border-top: 5px solid var(--QII-gold); }
+    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; border-radius: 12px; box-shadow: 0 4px 12px var(--shadow); }
+    .table-responsive table { min-width: 600px; width: 100%; margin: 0; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab { background: #e2e8f0; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .tab.active { background: var(--QII-gold); color: var(--QII-dark); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+    .fc-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .fc-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; }
+    .fc-stat.good { background: #38a169; } .fc-stat.bad { background: #e53e3e; } .fc-stat.pending { background: #4a5568; } .fc-stat.total { background: var(--QII-blue); }
+    .fc-progress { height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; max-width: 720px; margin: 0 auto 1.5rem; }
+    .fc-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QII-gold), var(--accent)); transition: width 0.4s; }
+    .flashcard-scene { perspective: 1400px; max-width: 720px; height: 320px; margin: 0 auto 1.5rem; }
+    .flashcard { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .fc-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: auto; box-shadow: 0 8px 24px var(--shadow); font-size: 1.15rem; }
+    .fc-front { background: linear-gradient(135deg, var(--QII-dark), var(--QII-blue)); color: #fff; border: 3px solid var(--QII-gold); }
+    .fc-back { background: linear-gradient(135deg, #fff, #fefcbf); color: var(--text); border: 3px solid var(--QII-gold); transform: rotateY(180deg); }
+    .fc-label { font-size: 0.85rem; letter-spacing: 2px; font-weight: 800; color: var(--QII-gold); margin-bottom: 1rem; }
+    .fc-hint { margin-top: 1rem; font-size: 0.85rem; opacity: 0.8; font-style: italic; }
+    .fc-controls { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .fc-btn { border: none; padding: 0.9rem 2rem; border-radius: 30px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; color: #fff; }
+    .fc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .fc-btn.good { background: #38a169; } .fc-btn.bad { background: #e53e3e; }
+    .fc-btn:not(:disabled):hover { transform: translateY(-3px); }
+    .map-container { overflow-x: auto; padding: 1rem 0; }
+    .map-tree, .map-tree ul { list-style: none; margin: 0; padding-left: 0; }
+    .map-tree ul { display: none; padding-left: 1.6rem; margin: 0.6rem 0 0; border-left: 3px solid var(--QII-gold); }
+    .map-tree li.open > ul { display: block; animation: fadeIn 0.4s ease; }
+    .map-tree li { margin: 0.4rem 0; }
+    .map-node { display: inline-block; background: var(--QII-dark); color: #fff; padding: 0.6rem 1.1rem; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; border: 1px solid var(--QII-gold); }
+    .map-node:hover { background: var(--QII-gold); color: var(--QII-dark); transform: translateX(4px); }
+    .map-node.root { background: var(--accent); color: white; font-size: 1.15rem; border: none; }
+    .map-node.branch { background: var(--QII-blue); }
+    .map-leaf { display: inline-block; background: #fff; color: var(--text); padding: 0.45rem 0.9rem; border-radius: 8px; font-size: 0.95rem; border: 2px solid var(--QII-gold); }
+    li.has-children > .map-node::before { content: '▶ '; font-size: 0.8em; }
+    li.has-children.open > .map-node::before { content: '▼ '; font-size: 0.8em; }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.2rem; }
+        .logo-container { flex-direction: column; gap: 1rem; } .logo-qii { width: 80px; }
+        .container { padding: 1rem; } .card { padding: 1.5rem; }
+        .nav-buttons { gap: 0.5rem; } .nav-btn { padding: 0.6rem 1rem; font-size: 0.75rem; }
+        .quiz-options { grid-template-columns: 1fr; }
+        .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+        .tab { flex-shrink: 0; padding: 0.6rem 1rem; font-size: 0.9rem; }
+        .flashcard-scene { height: 360px; } .fc-face { font-size: 1rem; padding: 1rem; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <!-- Logo: se asume que existe el archivo Logo-QII.png en el mismo directorio -->
+        <img src="Logo-QII.png" alt="Logo QII" class="logo-qii">
+        <div>
+            <h1>QUÍMICA II</h1>
+            <p class="subtitle">Unidad 3: Equilibrios</p>
+            <p class="subtitle">Clase 8: Hidrólisis de Sales</p>
+        </div>
+    </div>
+</header>
+
+<nav class="nav-container">
+    <div class="nav-buttons" id="navButtons">
+        <button class="nav-btn active" type="button" data-section="inicio">🏠 Inicio</button>
+        <button class="nav-btn" type="button" data-section="conceptos">📚 Conceptos</button>
+        <button class="nav-btn" type="button" data-section="mapa">🗺️ Mapa</button>
+        <button class="nav-btn" type="button" data-section="flashcards">🃏 Flashcards</button>
+        <button class="nav-btn" type="button" data-section="calculadoras">🧮 Herramientas</button>
+        <button class="nav-btn" type="button" data-section="aplicaciones">🏥 Aplicaciones</button>
+        <button class="nav-btn" type="button" data-section="mnemotecnias">🧠 Mnemotecnias</button>
+        <button class="nav-btn" type="button" data-section="glosario">📖 Glosario</button>
+        <button class="nav-btn" type="button" data-section="errores">⚠️ Errores</button>
+        <button class="nav-btn" type="button" data-section="bibliografia">📚 Bibliografía</button>
+        <button class="nav-btn" type="button" data-section="quiz">🎯 Quiz</button>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- ============ INICIO ============ -->
+<section id="inicio" class="section active">
+    <div class="card">
+        <h2>🎯 Resultados del Aprendizaje</h2>
+        <div class="info-box">
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li>✓ Definir hidrólisis de sales y reconocer los tipos de sales según su comportamiento ácido-base.</li>
+                <li>✓ Diferenciar sales que producen disoluciones neutras, ácidas y básicas.</li>
+                <li>✓ Calcular el pH de soluciones de sales mediante constantes de hidrólisis ($K_h$).</li>
+                <li>✓ Determinar el porcentaje de hidrólisis de una sal.</li>
+                <li>✓ Relacionar la hidrólisis de sales con aplicaciones en sistemas biológicos y farmacéuticos.</li>
+            </ul>
+        </div>
+
+        <h3>🔬 Relevancia Profesional</h3>
+        <div class="bio-box">
+            <div><strong>¿Por qué el estudiante de ciencias de la salud debe dominar la hidrólisis de sales?</strong>
+                <ul style="font-size: 1rem; margin-top: 1rem;">
+                    <li>• <strong>Bioquímica:</strong> El pH de los fluidos corporales depende del equilibrio entre sales y ácidos/bases conjugados (ej. sistema bicarbonato).</li>
+                    <li>• <strong>Farmacia:</strong> La solubilidad y absorción de fármacos (muchos son sales) depende del pH y de la hidrólisis de sus iones.</li>
+                    <li>• <strong>Nutrición:</strong> El metabolismo de nutrientes genera sales que pueden modificar el pH urinario o sanguíneo.</li>
+                    <li>• <strong>Medicina:</strong> La administración de soluciones salinas (como lactato de Ringer) afecta el equilibrio ácido-base del paciente.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos" class="section">
+    <div class="card">
+        <h2>📚 Conceptos Clave: Hidrólisis de Sales</h2>
+        <div id="conceptos-tabs" class="tab-group">
+            <div class="tabs" id="conceptosTabHeaders">
+                <button class="tab active" type="button" data-tab="sub-intro">🧪 Introducción</button>
+                <button class="tab" type="button" data-tab="sub-neutras">⚖️ Sales Neutras</button>
+                <button class="tab" type="button" data-tab="sub-basicas">🧴 Sales Básicas</button>
+                <button class="tab" type="button" data-tab="sub-acidas">🧪 Sales Ácidas</button>
+                <button class="tab" type="button" data-tab="sub-debil-debil">🔁 Ácido y Base Débiles</button>
+                <button class="tab" type="button" data-tab="sub-calc">📊 Cálculos de pH</button>
+            </div>
+
+            <!-- INTRO -->
+            <div id="sub-intro" class="tab-content active">
+                <h3>🧪 Hidrólisis de Sales</h3>
+                <div class="info-box">
+                    <p>Una <strong>sal</strong> es un compuesto iónico formado por la reacción de neutralización entre un ácido y una base. En agua, las sales se disocian completamente en sus iones constituyentes.</p>
+                    <p>La <strong>hidrólisis</strong> es la reacción de un anión o catión de la sal con el agua, produciendo iones $H_3O^+$ o $OH^-$, afectando así el pH de la disolución.</p>
+                    <p>Según el origen de la sal (ácido/base fuerte/débil), podemos clasificarlas en cuatro tipos:</p>
+                    <ul>
+                        <li><strong>Sales que producen disoluciones neutras</strong> (ácido fuerte + base fuerte).</li>
+                        <li><strong>Sales que producen disoluciones básicas</strong> (ácido débil + base fuerte).</li>
+                        <li><strong>Sales que producen disoluciones ácidas</strong> (ácido fuerte + base débil).</li>
+                        <li><strong>Sales con hidrólisis de ambos iones</strong> (ácido débil + base débil).</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <p><strong>Constante de hidrólisis ($K_h$)</strong>: se relaciona con $K_a$ (ácido conjugado) o $K_b$ (base conjugada) y $K_w$:</p>
+                    $$K_h = \frac{K_w}{K_a} \quad \text{(para hidrólisis de anión)}$$
+                    $$K_h = \frac{K_w}{K_b} \quad \text{(para hidrólisis de catión)}$$
+                    <p>Donde $K_w = 1.0 \times 10^{-14}$ a 25°C.</p>
+                </div>
+            </div>
+
+            <!-- NEUTRAS -->
+            <div id="sub-neutras" class="tab-content">
+                <h3>⚖️ Sales que producen disoluciones neutras</h3>
+                <p>Provienen de la neutralización de un <strong>ácido fuerte</strong> con una <strong>base fuerte</strong>.</p>
+                <div class="example-box" style="background:#f0f4f8; padding:1rem; border-radius:8px; margin:1rem 0;">
+                    <p><strong>Ejemplo:</strong> $NaNO_3$ (nitrato de sodio) se disocia en $Na^+$ y $NO_3^-$.</p>
+                    <ul>
+                        <li>$Na^+$ es un ácido muy débil (no reacciona con $OH^-$).</li>
+                        <li>$NO_3^-$ es la base conjugada de un ácido fuerte ($HNO_3$), por lo que no tiene afinidad por $H^+$.</li>
+                        <li>Por tanto, la disolución es <strong>neutra</strong> (pH $\approx 7$).</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <p><strong>Regla general:</strong> Las sales que contienen cationes de metales alcalinos o alcalinotérreos (excepto Be) y aniones de ácidos fuertes ($Cl^-$, $Br^-$, $I^-$, $NO_3^-$, $ClO_4^-$) no se hidrolizan y sus disoluciones son neutras.</p>
+                </div>
+                <div class="problem-box">
+                    <p><strong>Ejercicio:</strong> ¿Cuáles de las siguientes sales darán pH = 7?</p>
+                    <p>a) KCN &nbsp; b) NaClO &nbsp; c) LiBr &nbsp; d) NaClO₄ &nbsp; e) NaF &nbsp; f) MgCl₂</p>
+                    <details class="solution">
+                        <summary>Ver solución</summary>
+                        <p>Las sales que provienen de ácido fuerte + base fuerte son neutras: <strong>LiBr (c) y NaClO₄ (d)</strong>.</p>
+                        <p>KCN, NaClO y NaF vienen de ácidos débiles (HCN, HClO, HF) y base fuerte, por lo que son básicas.</p>
+                        <p>MgCl₂: proviene de HCl (fuerte) y Mg(OH)₂ (base débil), por lo que es ácida (Mg²⁺ se hidroliza).</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- BÁSICAS -->
+            <div id="sub-basicas" class="tab-content">
+                <h3>🧴 Sales que producen disoluciones básicas</h3>
+                <p>Provienen de la neutralización de un <strong>ácido débil</strong> con una <strong>base fuerte</strong>.</p>
+                <div class="example-box" style="background:#f0f4f8; padding:1rem; border-radius:8px; margin:1rem 0;">
+                    <p><strong>Ejemplo:</strong> $CH_3COONa$ (acetato de sodio).</p>
+                    <p>Disociación: $CH_3COONa \rightarrow CH_3COO^- + Na^+$</p>
+                    <ul>
+                        <li>$Na^+$ es un ácido muy débil.</li>
+                        <li>$CH_3COO^-$ es la base conjugada del ácido débil $CH_3COOH$; se hidroliza:</li>
+                        $$CH_3COO^- + H_2O \rightleftharpoons CH_3COOH + OH^-$$
+                        <li>Por tanto, la disolución es <strong>básica</strong> (pH > 7).</li>
+                    </ul>
+                </div>
+                <div class="bio-box">
+                    <p><strong>⚠️ Peligro:</strong> El benzoato de sodio ($C_6H_5COONa$) se usa como conservante (bacteriostático) en alimentos. En medio ácido (estómago) se convierte en ácido benzoico, un posible cancerígeno. Su hidrólisis produce un pH básico en solución.</p>
+                </div>
+                <div class="problem-box">
+                    <p><strong>Ejercicio:</strong> ¿Cuáles de las siguientes sales darán pH básico?</p>
+                    <p>a) NaHCO₃ &nbsp; b) LiCN &nbsp; c) CaCl₂ &nbsp; d) HCOOK &nbsp; e) KHS</p>
+                    <details class="solution">
+                        <summary>Ver solución</summary>
+                        <p>Son básicas las sales de ácido débil + base fuerte: <strong>NaHCO₃ (a), LiCN (b), HCOOK (d) y KHS (e)</strong>.</p>
+                        <p>CaCl₂ viene de HCl (fuerte) y Ca(OH)₂ (base fuerte, aunque poco soluble), por lo que es neutra.</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- ÁCIDAS -->
+            <div id="sub-acidas" class="tab-content">
+                <h3>🧪 Sales que producen disoluciones ácidas</h3>
+                <p>Provienen de la neutralización de un <strong>ácido fuerte</strong> con una <strong>base débil</strong>.</p>
+                <div class="example-box" style="background:#f0f4f8; padding:1rem; border-radius:8px; margin:1rem 0;">
+                    <p><strong>Ejemplo:</strong> $NH_4Cl$ (cloruro de amonio).</p>
+                    <p>Disociación: $NH_4Cl \rightarrow NH_4^+ + Cl^-$</p>
+                    <ul>
+                        <li>$Cl^-$ es base conjugada de ácido fuerte ($HCl$), no se hidroliza.</li>
+                        <li>$NH_4^+$ es el ácido conjugado de la base débil $NH_3$; se hidroliza:</li>
+                        $$NH_4^+ + H_2O \rightleftharpoons NH_3 + H_3O^+$$
+                        <li>Por tanto, la disolución es <strong>ácida</strong> (pH < 7).</li>
+                    </ul>
+                </div>
+                <div class="problem-box">
+                    <p><strong>Ejercicio:</strong> Considerando $K_b(NH_3)=1.8\times10^{-5}$ y $K_b(H_2NOH)=1.1\times10^{-8}$ (hidroxilamina). ¿Cuál es la base más débil? Si tenemos soluciones 0.1 M de $NH_4Cl$ y $H_3NOHCl$, ¿cuál dará el pH más ácido?</p>
+                    <details class="solution">
+                        <summary>Ver solución</summary>
+                        <p>La base más débil es la hidroxilamina ($K_b$ menor). Su ácido conjugado ($H_3NOH^+$) será más fuerte, por lo que $H_3NOHCl$ producirá un pH más ácido que $NH_4Cl$.</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- ÁCIDO Y BASE DÉBILES -->
+            <div id="sub-debil-debil" class="tab-content">
+                <h3>🔁 Sales de ácido débil y base débil</h3>
+                <p>Ambos iones se hidrolizan. El pH dependerá de la comparación de las constantes de hidrólisis.</p>
+                <div class="example-box" style="background:#f0f4f8; padding:1rem; border-radius:8px; margin:1rem 0;">
+                    <p><strong>Ejemplo:</strong> $CH_3COONH_4$ (acetato de amonio).</p>
+                    <p>Disociación: $CH_3COONH_4 \rightarrow CH_3COO^- + NH_4^+$</p>
+                    <ul>
+                        <li>$CH_3COO^-$ se hidroliza (base conjugada de ácido débil).</li>
+                        <li>$NH_4^+$ se hidroliza (ácido conjugado de base débil).</li>
+                        <li>Si $K_a (CH_3COOH) = K_b (NH_3) = 1.8\times10^{-5}$, entonces $K_h$ para ambos es igual, y el pH será <strong>neutro</strong> (≈7).</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <p><strong>Regla:</strong> Si $K_a > K_b$, predominará la hidrólisis ácida (pH < 7). Si $K_a < K_b$, predominará la hidrólisis básica (pH > 7). Si $K_a \approx K_b$, el pH será neutro.</p>
+                </div>
+                <div class="problem-box">
+                    <p><strong>Ejemplo:</strong> Calcule el pH de $NH_4CN$ 0.3 M. Datos: $K_b(NH_3)=1.8\times10^{-5}$, $K_a(HCN)=6.2\times10^{-10}$.</p>
+                    <details class="solution">
+                        <summary>Ver desarrollo</summary>
+                        <p>Constante de hidrólisis para $NH_4^+$: $K_h = K_w/K_b = 1\times10^{-14}/1.8\times10^{-5} = 5.56\times10^{-10}$</p>
+                        <p>Constante de hidrólisis para $CN^-$: $K_h = K_w/K_a = 1\times10^{-14}/6.2\times10^{-10} = 1.61\times10^{-5}$</p>
+                        <p>La hidrólisis del $CN^-$ es mucho mayor, por lo que la disolución será <strong>básica</strong>.</p>
+                        <p>Usando $K_h = x^2/(C-x) \approx x^2/C$, con $C=0.3$ y $K_h=1.61\times10^{-5}$:</p>
+                        <p>$x = [OH^-] = \sqrt{1.61\times10^{-5} \times 0.3} = 2.20\times10^{-3}$ M</p>
+                        <p>$pOH = 2.66$, $pH = 14 - 2.66 = 11.34$</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- CÁLCULOS DE pH -->
+            <div id="sub-calc" class="tab-content">
+                <h3>📊 Cálculos de pH y porcentaje de hidrólisis</h3>
+                <div class="problem-box">
+                    <p><strong>Ejemplo 1:</strong> Calcule el pH y el % de hidrólisis de una disolución de acetato de sodio ($CH_3COONa$) 0.15 M. $K_a = 1.8\times10^{-5}$.</p>
+                    <details class="solution">
+                        <summary>Ver desarrollo</summary>
+                        <p>Disociación: $CH_3COONa \rightarrow CH_3COO^- + Na^+$ (0.15 M cada ion).</p>
+                        <p>Hidrólisis del acetato: $CH_3COO^- + H_2O \rightleftharpoons CH_3COOH + OH^-$</p>
+                        <p>$K_h = K_w / K_a = 1\times10^{-14} / 1.8\times10^{-5} = 5.56\times10^{-10}$</p>
+                        <p>Usando tabla ICE: $K_h = x^2 / (0.15 - x) \approx x^2 / 0.15$</p>
+                        <p>$x = [OH^-] = \sqrt{5.56\times10^{-10} \times 0.15} = 9.13\times10^{-6}$ M</p>
+                        <p>$pOH = 5.04 \Rightarrow pH = 14 - 5.04 = 8.96$</p>
+                        <p>% hidrólisis $= (9.13\times10^{-6} / 0.15) \times 100 = 0.0061\%$</p>
+                    </details>
+                </div>
+                <div class="problem-box">
+                    <p><strong>Ejemplo 2:</strong> ¿Cuántos moles de NaCN se necesitan para preparar 250 mL de una disolución de pH 10? $K_a(HCN) = 4.9\times10^{-10}$.</p>
+                    <details class="solution">
+                        <summary>Ver desarrollo</summary>
+                        <p>$pH=10 \Rightarrow pOH=4 \Rightarrow [OH^-]=10^{-4}$ M.</p>
+                        <p>$K_h = K_w/K_a = 1\times10^{-14} / 4.9\times10^{-10} = 2.04\times10^{-5}$</p>
+                        <p>Para $CN^- + H_2O \rightleftharpoons HCN + OH^-$:</p>
+                        <p>$K_h = [OH^-]^2 / C \Rightarrow C = [OH^-]^2 / K_h = (10^{-4})^2 / 2.04\times10^{-5} = 4.90\times10^{-4}$ M</p>
+                        <p>Moles en 0.25 L: $4.90\times10^{-4} \times 0.25 = 1.23\times10^{-4}$ mol</p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MAPA CONCEPTUAL ============ -->
+<section id="mapa" class="section">
+    <div class="card">
+        <h2>🗺️ Mapa Conceptual: Hidrólisis de Sales</h2>
+        <p style="margin-bottom:1rem;">Haz <strong>clic en cada nodo</strong> para desplegar u ocultar sus ramas.</p>
+        <div class="map-container">
+            <ul class="map-tree">
+                <li class="has-children open">
+                    <div class="map-node root" onclick="toggleMap(this)">🧪 HIDRÓLISIS DE SALES</div>
+                    <ul>
+                        <li class="has-children">
+                            <div class="map-node branch" onclick="toggleMap(this)">⚖️ Tipos de Sales</div>
+                            <ul>
+                                <li><span class="map-leaf">Neutras: AF + BF (pH ≈ 7)</span></li>
+                                <li><span class="map-leaf">Básicas: AD + BF (pH > 7)</span></li>
+                                <li><span class="map-leaf">Ácidas: AF + BD (pH < 7)</span></li>
+                                <li><span class="map-leaf">AD + BD: pH depende de K_a vs K_b</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <div class="map-node branch" onclick="toggleMap(this)">📊 Cálculo de pH</div>
+                            <ul>
+                                <li><span class="map-leaf">Usar $K_h = K_w / K_a$ o $K_w / K_b$</span></li>
+                                <li><span class="map-leaf">Tabla ICE y aproximación (C/K_h > 100)</span></li>
+                                <li><span class="map-leaf">pH = 14 - pOH (si hay hidrólisis básica)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <div class="map-node branch" onclick="toggleMap(this)">🏥 Aplicaciones</div>
+                            <ul>
+                                <li><span class="map-leaf">Sistema buffer bicarbonato en sangre</span></li>
+                                <li><span class="map-leaf">Solubilidad de fármacos (sales)</span></li>
+                                <li><span class="map-leaf">Conservantes alimentarios (benzoato)</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section id="flashcards" class="section">
+    <div class="card">
+        <h2>🃏 Flashcards: Hidrólisis de Sales</h2>
+        <p>Haz <strong>clic en la tarjeta</strong> para voltearla.</p>
+        <div class="fc-stats">
+            <span class="fc-stat good">✅ Buenas: <span id="fc-good">0</span></span>
+            <span class="fc-stat bad">❌ Malas: <span id="fc-bad">0</span></span>
+            <span class="fc-stat pending">⏳ Pendientes: <span id="fc-left">0</span></span>
+        </div>
+        <div class="fc-progress"><div class="fc-progress-bar" id="fc-bar"></div></div>
+        <div class="flashcard-scene" id="fc-scene">
+            <div class="flashcard" id="fc-card">
+                <div class="fc-face fc-front">
+                    <div class="fc-label">PREGUNTA</div>
+                    <div id="fc-question"></div>
+                    <span class="fc-hint">Clic para voltear ✨</span>
+                </div>
+                <div class="fc-face fc-back">
+                    <div class="fc-label">RESPUESTA</div>
+                    <div id="fc-answer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="fc-controls" id="fc-controls">
+            <button class="fc-btn good" id="btn-fc-good" disabled>✅ La sabía</button>
+            <button class="fc-btn bad" id="btn-fc-bad" disabled>❌ No la sabía</button>
+        </div>
+        <div style="text-align:center;">
+            <button class="calc-button" id="resetFlashcardsBtn">🔄 Reiniciar</button>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HERRAMIENTAS ============ -->
+<section id="calculadoras" class="section">
+    <div class="card">
+        <h2>🧮 Herramientas Interactivas</h2>
+        <div id="herramientas-tabs" class="tab-group">
+            <div class="tabs" id="herramientasTabHeaders">
+                <button class="tab active" type="button" data-tab="calc-ph">🌡️ Calc pH de Sal</button>
+                <button class="tab" type="button" data-tab="calc-kh">🔢 Constante de Hidrólisis</button>
+            </div>
+
+            <div id="calc-ph" class="tab-content active">
+                <div class="calculator">
+                    <div class="calc-title">🌡️ Calculadora de pH para Hidrólisis de Sal</div>
+                    <p>Ingresa los datos para calcular el pH de una solución de sal que se hidroliza.</p>
+                    <div class="calc-input-group"><label>Tipo de hidrólisis:</label>
+                        <select id="tipo-hidrolisis">
+                            <option value="anion">Anión (ácido débil + base fuerte) → básica</option>
+                            <option value="cation">Catión (ácido fuerte + base débil) → ácida</option>
+                        </select>
+                    </div>
+                    <div class="calc-input-group"><label>Constante de acidez del ácido conjugado ($K_a$) o basicidad ($K_b$):</label>
+                        <input type="number" id="k-hidrolisis" value="1.8e-5" step="1e-6">
+                    </div>
+                    <div class="calc-input-group"><label>Concentración de la sal (M):</label>
+                        <input type="number" id="c-sal" value="0.15" step="0.001">
+                    </div>
+                    <button class="calc-button" type="button" id="calcHidrolisisBtn">Calcular pH</button>
+                    <div id="res-hidrolisis" class="calc-result"></div>
+                </div>
+            </div>
+
+            <div id="calc-kh" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🔢 Constante de Hidrólisis ($K_h$)</div>
+                    <p>Calcula $K_h$ a partir de $K_w$ y $K_a$ o $K_b$.</p>
+                    <div class="calc-input-group"><label>Tipo:</label>
+                        <select id="tipo-kh">
+                            <option value="anion">Anión (usar $K_a$ del ácido conjugado)</option>
+                            <option value="cation">Catión (usar $K_b$ de la base conjugada)</option>
+                        </select>
+                    </div>
+                    <div class="calc-input-group"><label>Constante ($K_a$ o $K_b$):</label>
+                        <input type="number" id="k-constante" value="1.8e-5" step="1e-6">
+                    </div>
+                    <button class="calc-button" type="button" id="calcKhBtn">Calcular $K_h$</button>
+                    <div id="res-kh" class="calc-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ APLICACIONES ============ -->
+<section id="aplicaciones" class="section">
+    <div class="card">
+        <h2>🏥 Aplicaciones en Ciencias de la Salud</h2>
+        <div class="pharma-box">
+            <h3>🩸 Equilibrio Ácido-Base en la Sangre</h3>
+            <p>El sistema buffer bicarbonato es fundamental para mantener el pH sanguíneo (7.35-7.45). La hidrólisis de sales como el bicarbonato de sodio ($NaHCO_3$) influye en este equilibrio:</p>
+            $$HCO_3^- + H_2O \rightleftharpoons H_2CO_3 + OH^-$$
+            <p>En acidosis metabólica, se administra bicarbonato para elevar el pH.</p>
+        </div>
+        <div class="bio-box">
+            <h3>💊 Absorción de Fármacos</h3>
+            <p>Muchos fármacos se administran como sales para mejorar su solubilidad. Por ejemplo, el clorhidrato de codeína ($C_{18}H_{21}ClO_3NH^+Cl^-$) se hidroliza liberando el catión codeinio, que es la forma activa. La hidrólisis de la sal afecta su absorción en el tracto gastrointestinal.</p>
+        </div>
+        <div class="info-box">
+            <h3>🍽️ Conservantes Alimentarios</h3>
+            <p>El benzoato de sodio ($C_6H_5COONa$) se hidroliza a ácido benzoico en medio ácido (estómago), ejerciendo su acción antimicrobiana. La hidrólisis de esta sal produce un pH básico en solución, pero en el estómago se protona.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MNEMOTECNIAS ============ -->
+<section id="mnemotecnias" class="section">
+    <div class="card">
+        <h2>🧠 Mnemotecnias</h2>
+        <div class="mnemonic-card">
+            <div class="mnemonic-title">Sales neutras: "Fuerte con Fuerte"</div>
+            <p><strong>"El fuerte no se doblega"</strong> → Sales de ácido fuerte + base fuerte son neutras (pH 7).</p>
+        </div>
+        <div class="mnemonic-card">
+            <div class="mnemonic-title">Sales básicas: "Débil con Fuerte"</div>
+            <p><strong>"El débil se deja llevar por el fuerte"</strong> → El anión del ácido débil se hidroliza y produce OH⁻, dando pH > 7.</p>
+        </div>
+        <div class="mnemonic-card">
+            <div class="mnemonic-title">Sales ácidas: "Fuerte con Débil"</div>
+            <p><strong>"El fuerte domina al débil"</strong> → El catión de la base débil se hidroliza y produce H₃O⁺, dando pH < 7.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ GLOSARIO ============ -->
+<section id="glosario" class="section">
+    <div class="card">
+        <h2>📖 Glosario</h2>
+        <div class="glossary-term" onclick="toggleGlossary(this)">
+            <strong>Hidrólisis</strong>
+            <div class="glossary-definition">Reacción de un ion de una sal con el agua, produciendo iones H₃O⁺ u OH⁻ y modificando el pH de la disolución.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleGlossary(this)">
+            <strong>Constante de hidrólisis ($K_h$)</strong>
+            <div class="glossary-definition">Constante de equilibrio para la reacción de hidrólisis de un ion. Se calcula como $K_w / K_a$ (para anión) o $K_w / K_b$ (para catión).</div>
+        </div>
+        <div class="glossary-term" onclick="toggleGlossary(this)">
+            <strong>Sal neutra</strong>
+            <div class="glossary-definition">Sal que no se hidroliza, formada por ácido fuerte y base fuerte, dando pH ≈ 7.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleGlossary(this)">
+            <strong>Sal básica</strong>
+            <div class="glossary-definition">Sal formada por ácido débil y base fuerte; su anión se hidroliza produciendo OH⁻, pH > 7.</div>
+        </div>
+        <div class="glossary-term" onclick="toggleGlossary(this)">
+            <strong>Sal ácida</strong>
+            <div class="glossary-definition">Sal formada por ácido fuerte y base débil; su catión se hidroliza produciendo H₃O⁺, pH < 7.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ERRORES COMUNES ============ -->
+<section id="errores" class="section">
+    <div class="card">
+        <h2>⚠️ Errores Comunes</h2>
+        <div class="error-card">
+            <div class="error-title">Error 1: Confundir el tipo de sal por el nombre</div>
+            <p>No todas las sales que contienen un catión metálico son básicas. Ej: $NaCl$ es neutra (ácido fuerte + base fuerte), pero $NaF$ es básica (ácido débil + base fuerte).</p>
+            <div class="correction"><strong>Corrección:</strong> Identificar siempre el ácido y la base de origen.</div>
+        </div>
+        <div class="error-card">
+            <div class="error-title">Error 2: Olvidar la estequiometría de la hidrólisis</div>
+            <p>Para una sal como $CaF_2$, el anión $F^-$ se hidroliza, pero la concentración de $F^-$ es el doble de la sal.</p>
+            <div class="correction"><strong>Corrección:</strong> Considerar la estequiometría de la disociación de la sal.</div>
+        </div>
+        <div class="error-card">
+            <div class="error-title">Error 3: Aproximar $C - x \approx C$ sin verificar</div>
+            <p>Si la constante de hidrólisis es grande o la concentración es muy baja, la aproximación falla.</p>
+            <div class="correction"><strong>Corrección:</strong> Usar la regla del 5%: si $x/C \times 100 < 5\%$, la aproximación es válida.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BIBLIOGRAFIA ============ -->
+<section id="bibliografia" class="section">
+    <div class="card">
+        <h2>📚 Bibliografía</h2>
+        <ul>
+            <li>Chang, R., & Goldsby, K. A. (2017). <em>Química</em> (12va ed.). McGraw-Hill Interamericana. Capítulo 16.</li>
+            <li>Brown, T. L., LeMay, H. E., Bursten, B. E., & Murphy, C. J. (2018). <em>Química: La Ciencia Central</em> (13va ed.). Pearson. Capítulo 16.</li>
+            <li>Petrucci, R. H., Herring, F. G., Madura, J. D., & Bissonnette, C. (2017). <em>Química General</em> (11va ed.). Pearson. Capítulo 17.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="section">
+    <div class="card">
+        <h2>🎯 Quiz de Autoevaluación</h2>
+        <div class="quiz-container" id="quiz-box">
+            <div class="quiz-progress"><div class="quiz-progress-bar-bg"><div class="quiz-progress-bar" id="quiz-bar"></div></div></div>
+            <div class="quiz-stats" id="quiz-stats-inline" style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.95rem;">
+                <span style="color:#D97706; font-weight:700;">Pregunta: <span id="quiz-current">1</span> de <span id="quiz-total">10</span></span>
+                <span style="color:#38a169; font-weight:700;">Puntaje: <span id="quiz-score">0</span> pts</span>
+            </div>
+            <div id="quiz-content"></div>
+            <div class="quiz-stats" id="quiz-stats" style="display:none;">
+                <span class="quiz-stat" style="background:#38a169">✅ Correctas: <span id="quiz-correct">0</span></span>
+                <span class="quiz-stat" style="background:#e53e3e">❌ Incorrectas: <span id="quiz-incorrect">0</span></span>
+                <span class="quiz-stat" style="background:var(--QII-blue)">🏆 Puntaje Final: <span id="quiz-final-score">0</span> pts</span>
+            </div>
+            <button class="calc-button" id="resetQuizBtn" style="display:none; margin-top:1rem;">🔄 Nuevo Ciclo (10 preguntas aleatorias)</button>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    <p>&copy; 2024 Química II - Plataforma Educativa Universitaria | Clase 8: Hidrólisis de Sales</p>
+</footer>
+
+<script>
+    // ======================== FUNCIONES GLOBALES ========================
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.nav-btn[data-section="${id}"]`)?.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function showTab(groupId, tabId) {
+        const group = document.getElementById(groupId);
+        if (!group) return;
+        group.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        const targetContent = document.getElementById(tabId);
+        if (targetContent) targetContent.classList.add('active');
+        const tabBtn = group.querySelector(`.tab[data-tab="${tabId}"]`);
+        if (tabBtn) tabBtn.classList.add('active');
+        if (window.MathJax) MathJax.typeset();
+    }
+
+    function toggleMap(el) {
+        el.parentElement.classList.toggle('open');
+    }
+
+    function toggleGlossary(el) {
+        el.querySelector('.glossary-definition').classList.toggle('show');
+    }
+
+    // ======================== FLASHCARDS ========================
+    const flashcards = [
+        {q: "¿Qué es la hidrólisis de sales?", a: "Es la reacción de un anión o catión de una sal con el agua, produciendo H₃O⁺ o OH⁻ y afectando el pH."},
+        {q: "¿Qué tipo de sal produce una disolución neutra?", a: "Sales de ácido fuerte + base fuerte (ej. NaCl)."},
+        {q: "¿Qué tipo de sal produce una disolución básica?", a: "Sales de ácido débil + base fuerte (ej. CH₃COONa)."},
+        {q: "¿Qué tipo de sal produce una disolución ácida?", a: "Sales de ácido fuerte + base débil (ej. NH₄Cl)."},
+        {q: "Fórmula para la constante de hidrólisis de un anión", a: "$K_h = K_w / K_a$ del ácido conjugado."},
+        {q: "Fórmula para la constante de hidrólisis de un catión", a: "$K_h = K_w / K_b$ de la base conjugada."},
+        {q: "¿Cómo se calcula el pH para una sal que se hidroliza básicamente?", a: "Calcular [OH⁻] a partir de $K_h$, luego pOH y pH = 14 - pOH."},
+        {q: "¿Qué es la regla del 5% en hidrólisis?", a: "Si $x/C_i \\times 100 < 5\\%$, la aproximación $C_i - x \\approx C_i$ es válida."},
+        {q: "Ejemplo de sal que se hidroliza ácidamente", a: "NH₄Cl (cloruro de amonio)."},
+        {q: "Ejemplo de sal que se hidroliza básicamente", a: "CH₃COONa (acetato de sodio)."}
+    ];
+    let fcIdx = 0, fcGood = 0, fcBad = 0, fcLeft = flashcards.length;
+
+    function updateFcStats() {
+        document.getElementById('fc-good').innerText = fcGood;
+        document.getElementById('fc-bad').innerText = fcBad;
+        document.getElementById('fc-left').innerText = fcLeft;
+        document.getElementById('fc-bar').style.width = ((fcGood+fcBad)/flashcards.length * 100) + '%';
+    }
+
+    function loadCard() {
+        if(fcIdx >= flashcards.length) {
+            document.getElementById('fc-question').innerHTML = "¡Terminaste las flashcards!";
+            document.getElementById('fc-answer').innerHTML = "Revisa tus estadísticas arriba.";
+            document.getElementById('btn-fc-good').disabled = true;
+            document.getElementById('btn-fc-bad').disabled = true;
+            return;
+        }
+        const card = flashcards[fcIdx];
+        document.getElementById('fc-question').innerHTML = card.q;
+        document.getElementById('fc-answer').innerHTML = card.a;
+        document.getElementById('fc-card').classList.remove('flipped');
+        document.getElementById('btn-fc-good').disabled = true;
+        document.getElementById('btn-fc-bad').disabled = true;
+        if(window.MathJax) MathJax.typeset();
+    }
+
+    function flipCard() {
+        const card = document.getElementById('fc-card');
+        card.classList.toggle('flipped');
+        if(card.classList.contains('flipped')) {
+            document.getElementById('btn-fc-good').disabled = false;
+            document.getElementById('btn-fc-bad').disabled = false;
+        }
+    }
+
+    function gradeCard(isGood) {
+        if(isGood) fcGood++; else fcBad++;
+        fcLeft--;
+        fcIdx++;
+        updateFcStats();
+        loadCard();
+    }
+
+    function resetFlashcards() {
+        fcIdx=0; fcGood=0; fcBad=0; fcLeft=flashcards.length;
+        updateFcStats(); loadCard();
+    }
+
+    // ======================== CALCULADORAS ========================
+    function calcularHidrolisis() {
+        const tipo = document.getElementById('tipo-hidrolisis').value;
+        const K = parseFloat(document.getElementById('k-hidrolisis').value);
+        const C = parseFloat(document.getElementById('c-sal').value);
+        const Kw = 1e-14;
+        let Kh = tipo === 'anion' ? Kw / K : Kw / K;
+        let x, pH, pOH;
+        // Asumimos aproximación x << C
+        if (tipo === 'anion') {
+            x = Math.sqrt(Kh * C);
+            pOH = -Math.log10(x);
+            pH = 14 - pOH;
+        } else {
+            x = Math.sqrt(Kh * C);
+            pH = -Math.log10(x);
+        }
+        const porc = (x / C) * 100;
+        const res = document.getElementById('res-hidrolisis');
+        res.innerHTML = `<strong>Resultados:</strong><br> $K_h$ = ${Kh.toExponential(2)}<br> $[OH^-]$ o $[H_3O^+] = ${x.toExponential(2)}$ M<br> pH = ${pH.toFixed(2)}<br> % Hidrólisis = ${porc.toFixed(3)}%<br> <em>${porc < 5 ? 'Aproximación válida' : 'CUIDADO: % hidrólisis > 5, usar cuadrática'}</em>`;
+        res.classList.add('show');
+    }
+
+    function calcularKh() {
+        const tipo = document.getElementById('tipo-kh').value;
+        const K = parseFloat(document.getElementById('k-constante').value);
+        const Kw = 1e-14;
+        let Kh = tipo === 'anion' ? Kw / K : Kw / K;
+        const res = document.getElementById('res-kh');
+        res.innerHTML = `<strong>$K_h$</strong> = ${Kh.toExponential(2)}<br> (Usando $K_w = 1.0\\times10^{-14}$)`;
+        res.classList.add('show');
+    }
+
+    // ======================== QUIZ (30 preguntas, muestra 10 aleatorias) ========================
+    const preguntaPool = [
+        {q: "¿Qué tipo de sal produce una disolución neutra?", options: ["Ácido fuerte + base fuerte", "Ácido débil + base fuerte", "Ácido fuerte + base débil", "Ácido débil + base débil"], correct: 0, exp: "Las sales de ácido fuerte y base fuerte no se hidrolizan, pH ≈ 7."},
+        {q: "El acetato de sodio (CH₃COONa) en agua produce un pH:", options: ["Ácido", "Básico", "Neutro", "Indefinido"], correct: 1, exp: "El ion acetato se hidroliza produciendo OH⁻, por lo que la disolución es básica."},
+        {q: "¿Cuál de las siguientes sales es básica?", options: ["NaCl", "NH₄Cl", "NaF", "KClO₄"], correct: 2, exp: "NaF proviene de HF (ácido débil) y NaOH (base fuerte), por lo que es básica."},
+        {q: "La hidrólisis del ion NH₄⁺ produce:", options: ["OH⁻", "H₃O⁺", "H₂O", "NH₂⁻"], correct: 1, exp: "NH₄⁺ + H₂O ⇌ NH₃ + H₃O⁺, genera acidez."},
+        {q: "Fórmula para la constante de hidrólisis de un anión:", options: ["K_h = K_w / K_a", "K_h = K_w / K_b", "K_h = K_a / K_w", "K_h = K_b / K_w"], correct: 0, exp: "Para un anión (base conjugada de ácido débil), K_h = K_w / K_a."},
+        {q: "¿Cuál es la base conjugada de un ácido débil?", options: ["Fuerte", "Débil", "Neutra", "Anfiprótica"], correct: 0, exp: "La base conjugada de un ácido débil es fuerte (tiende a hidrolizarse)."},
+        {q: "El cloruro de amonio (NH₄Cl) en agua produce un pH:", options: ["Ácido", "Básico", "Neutro", "Alcalino"], correct: 0, exp: "El ion NH₄⁺ se hidroliza generando H₃O⁺, pH ácido."},
+        {q: "¿Qué sal se hidroliza dando una disolución básica?", options: ["KNO₃", "Na₂CO₃", "NH₄NO₃", "CaCl₂"], correct: 1, exp: "Na₂CO₃ proviene de H₂CO₃ (ácido débil) y NaOH (base fuerte), es básica."},
+        {q: "La constante de hidrólisis K_h se relaciona con K_w y:", options: ["K_a o K_b", "K_p", "K_c", "K_f"], correct: 0, exp: "K_h = K_w / K_a (anión) o K_w / K_b (catión)."},
+        {q: "¿Cuál de las siguientes es una sal neutra?", options: ["NaF", "KCN", "KBr", "NH₄Cl"], correct: 2, exp: "KBr proviene de HBr (ácido fuerte) y KOH (base fuerte), es neutra."},
+        {q: "El ion CN⁻ se hidroliza produciendo:", options: ["OH⁻", "H₃O⁺", "HCN", "CN²⁻"], correct: 0, exp: "CN⁻ + H₂O ⇌ HCN + OH⁻, da pH básico."},
+        {q: "¿Qué tipo de sal es el benzoato de sodio (C₆H₅COONa)?", options: ["Neutra", "Básica", "Ácida", "Anfótera"], correct: 1, exp: "Benzoato de sodio proviene de ácido benzoico (débil) y NaOH (fuerte), es básica."},
+        {q: "La hidrólisis de una sal de ácido fuerte y base débil produce:", options: ["pH > 7", "pH < 7", "pH = 7", "No afecta el pH"], correct: 1, exp: "El catión de la base débil se hidroliza generando H₃O⁺, pH ácido."},
+        {q: "¿Qué sucede con el pH si aumenta la concentración de una sal que se hidroliza básicamente?", options: ["Aumenta", "Disminuye", "No cambia", "Se vuelve ácido"], correct: 0, exp: "Al aumentar la concentración, mayor [OH⁻], por lo que el pH aumenta."},
+        {q: "Fórmula para calcular [OH⁻] en hidrólisis de anión (aproximación):", options: ["√(K_h · C)", "√(K_a · C)", "√(K_w · C)", "K_h · C"], correct: 0, exp: "Se usa x = √(K_h · C) cuando la aproximación es válida."},
+        {q: "¿Cuál es el pH de una solución 0.1 M de CH₃COONa si K_a = 1.8×10⁻⁵? (aprox)", options: ["8.87", "9.87", "7.00", "5.13"], correct: 0, exp: "K_h = 5.56×10⁻¹⁰, x = √(5.56e-10·0.1)=7.45e-6, pOH=5.13, pH=8.87."},
+        {q: "¿Cuál es la base más fuerte entre Cl⁻, ClO⁻, NO₃⁻ y Br⁻?", options: ["Cl⁻", "ClO⁻", "NO₃⁻", "Br⁻"], correct: 1, exp: "ClO⁻ es base conjugada del ácido débil HClO, por lo tanto es la más fuerte."},
+        {q: "La hidrólisis de una sal de ácido débil y base débil tiene pH neutro cuando:", options: ["K_a > K_b", "K_a = K_b", "K_a < K_b", "Siempre es neutro"], correct: 1, exp: "Si K_a = K_b, las hidrólisis se compensan y pH ≈ 7."},
+        {q: "¿Qué ion se hidroliza en una sal básica?", options: ["Catión", "Anión", "Ambos", "Ninguno"], correct: 1, exp: "El anión (base conjugada del ácido débil) se hidroliza produciendo OH⁻."},
+        {q: "¿Qué ion se hidroliza en una sal ácida?", options: ["Catión", "Anión", "Ambos", "Ninguno"], correct: 0, exp: "El catión (ácido conjugado de la base débil) se hidroliza produciendo H₃O⁺."},
+        {q: "El pH de una solución de NaCN 0.1 M (Ka HCN=4.9×10⁻¹⁰) es aproximadamente:", options: ["11.0", "9.0", "7.0", "5.0"], correct: 0, exp: "K_h = 2.04e-5, x = √(2.04e-5·0.1)=1.43e-3, pOH=2.85, pH=11.15."},
+        {q: "¿Qué sal da una disolución neutra?", options: ["NaNO₃", "NaF", "NH₄Cl", "Na₂CO₃"], correct: 0, exp: "NaNO₃ proviene de HNO₃ (fuerte) y NaOH (fuerte), neutra."},
+        {q: "La hidrólisis es la reacción de un ion con:", options: ["Agua", "Ácido", "Base", "Sal"], correct: 0, exp: "Hidrólisis: reacción con agua."},
+        {q: "¿Cuál es el porcentaje de hidrólisis de una sal 0.15 M si [OH⁻]=9.13×10⁻⁶ M?", options: ["0.006%", "0.06%", "0.6%", "6%"], correct: 0, exp: "(9.13e-6 / 0.15) × 100 = 0.0061%."},
+        {q: "¿Qué tipo de sal es el cloruro de piridinio (C₅H₅NH⁺Cl⁻)?", options: ["Neutra", "Básica", "Ácida", "Anfótera"], correct: 2, exp: "Proviene de ácido fuerte (HCl) y base débil (piridina), por lo que es ácida."},
+        {q: "La constante de hidrólisis del ion NH₄⁺ es:", options: ["K_w / K_b(NH₃)", "K_w / K_a(NH₄⁺)", "K_a(NH₄⁺) / K_w", "K_b(NH₃) / K_w"], correct: 0, exp: "K_h = K_w / K_b(base conjugada) = K_w / K_b(NH₃)."},
+        {q: "¿Cuál de las siguientes sales es ácida?", options: ["KCl", "NaNO₃", "NH₄NO₃", "KCN"], correct: 2, exp: "NH₄NO₃ proviene de HNO₃ (fuerte) y NH₃ (débil), es ácida."},
+        {q: "La hidrólisis del ion CO₃²⁻ produce:", options: ["OH⁻", "H₃O⁺", "CO₂", "HCO₃⁻"], correct: 0, exp: "CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻, básico."},
+        {q: "¿Qué factor determina si una sal de ácido débil y base débil es ácida, básica o neutra?", options: ["K_a vs K_b", "K_h", "Concentración", "Temperatura"], correct: 0, exp: "Comparando K_a del ácido y K_b de la base se predice el pH."},
+        {q: "El sorbato de piridinio (C₅H₅NH⁺C₆H₇O₂⁻) proviene de un ácido débil y una base débil. Si pKb(piridina)=8.82 y pKa(ácido sórbico)=4.77, el pH será:", options: ["Ácido", "Básico", "Neutro", "No se puede determinar"], correct: 0, exp: "K_a = 10^-4.77 = 1.7e-5, K_b = 10^-8.82 = 1.5e-9. K_a > K_b, predomina hidrólisis ácida, pH < 7."}
+    ];
+
+    let quizIdx = 0, quizCorrect = 0, quizIncorrect = 0;
+    let preguntasActivas = [];  // 10 preguntas seleccionadas al azar
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function cargarNuevasPreguntas() {
+        // Seleccionar 10 aleatorias de la pool
+        const indices = Array.from({length: preguntaPool.length}, (_, i) => i);
+        shuffleArray(indices);
+        const seleccionados = indices.slice(0, 10);
+        preguntasActivas = seleccionados.map(i => preguntaPool[i]);
+        quizIdx = 0;
+        quizCorrect = 0;
+        quizIncorrect = 0;
+        document.getElementById('quiz-stats').style.display = 'none';
+        document.getElementById('resetQuizBtn').style.display = 'none';
+        document.getElementById('quiz-stats-inline').style.display = 'flex';
+        document.getElementById('quiz-current').innerText = '1';
+        document.getElementById('quiz-total').innerText = '10';
+        document.getElementById('quiz-score').innerText = '0';
+        document.getElementById('quiz-bar').style.width = '0%';
+        loadQuizPregunta();
+    }
+
+    function loadQuizPregunta() {
+        const container = document.getElementById('quiz-content');
+        if (!container) return;
+
+        document.getElementById('quiz-current').innerText = Math.min(quizIdx + 1, preguntasActivas.length);
+        document.getElementById('quiz-total').innerText = preguntasActivas.length;
+        document.getElementById('quiz-score').innerText = quizCorrect * 10; // 10 pts por pregunta
+
+        if(quizIdx >= preguntasActivas.length) {
+            document.getElementById('quiz-stats-inline').style.display = 'none';
+            document.getElementById('quiz-stats').style.display = 'flex';
+            document.getElementById('resetQuizBtn').style.display = 'inline-block';
+            document.getElementById('quiz-correct').innerText = quizCorrect;
+            document.getElementById('quiz-incorrect').innerText = quizIncorrect;
+            document.getElementById('quiz-final-score').innerText = quizCorrect * 10;
+            container.innerHTML = "<h3 style='color:#D97706; text-align:center;'>¡Ciclo completado! Haz clic en 'Nuevo Ciclo' para otra ronda.</h3>";
+            return;
+        }
+
+        const q = preguntasActivas[quizIdx];
+        let html = `<div class="quiz-question-card"><div class="quiz-question">${quizIdx+1}. ${q.q}</div><div class="quiz-options">`;
+        q.options.forEach((opt, i) => {
+            html += `<button class="quiz-option" type="button" data-optindex="${i}">${opt}</button>`;
+        });
+        html += `</div><div class="quiz-explanation" id="quiz-exp-${quizIdx}">${q.exp}</div></div>`;
+        container.innerHTML = html;
+        document.getElementById('quiz-bar').style.width = ((quizIdx)/preguntasActivas.length * 100) + '%';
+
+        container.querySelectorAll('.quiz-option').forEach(btn => {
+            btn.addEventListener('click', function() {
+                checkQuizPregunta(parseInt(this.dataset.optindex), q.correct, this);
+            });
+        });
+    }
+
+    function checkQuizPregunta(selected, correct, btn) {
+        const parent = btn.closest('.quiz-question-card');
+        const opts = parent.querySelectorAll('.quiz-option');
+        opts.forEach(o => o.disabled = true);
+
+        if(selected === correct) {
+            btn.classList.add('correct');
+            quizCorrect++;
+        } else {
+            btn.classList.add('incorrect');
+            opts[correct].classList.add('correct');
+            quizIncorrect++;
+        }
+        document.getElementById(`quiz-exp-${quizIdx}`).style.display = 'block';
+        quizIdx++;
+        setTimeout(loadQuizPregunta, 2000);
+    }
+
+    // ======================== INICIALIZACIÓN ========================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navegación
+        document.querySelectorAll('.nav-btn[data-section]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const sectionId = this.dataset.section;
+                showSection(sectionId);
+                if(sectionId === 'quiz') {
+                    // Si no hay preguntas activas o se quiere recargar, cargarlas
+                    if(preguntasActivas.length === 0) {
+                        cargarNuevasPreguntas();
+                    } else {
+                        loadQuizPregunta();
+                    }
+                }
+            });
+        });
+
+        // Tabs de Conceptos
+        document.getElementById('conceptos-tabs').querySelectorAll('.tab[data-tab]').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                showTab('conceptos-tabs', this.dataset.tab);
+            });
+        });
+        // Tabs de Herramientas
+        document.getElementById('herramientas-tabs').querySelectorAll('.tab[data-tab]').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                showTab('herramientas-tabs', this.dataset.tab);
+            });
+        });
+
+        // Flashcards
+        document.getElementById('fc-card').addEventListener('click', flipCard);
+        document.getElementById('btn-fc-good').addEventListener('click', function() { gradeCard(true); });
+        document.getElementById('btn-fc-bad').addEventListener('click', function() { gradeCard(false); });
+        document.getElementById('resetFlashcardsBtn').addEventListener('click', resetFlashcards);
+
+        // Calculadoras
+        document.getElementById('calcHidrolisisBtn').addEventListener('click', calcularHidrolisis);
+        document.getElementById('calcKhBtn').addEventListener('click', calcularKh);
+
+        // Quiz: reinicio/nuevo ciclo
+        document.getElementById('resetQuizBtn').addEventListener('click', function() {
+            cargarNuevasPreguntas();
+        });
+
+        // Inicializar flashcards y quiz
+        updateFcStats();
+        loadCard();
+        // Inicializar quiz con primeras preguntas (se cargarán cuando se acceda a la pestaña)
+        cargarNuevasPreguntas();
+
+        // Mostrar primera pestaña de conceptos y herramientas
+        showTab('conceptos-tabs', 'sub-intro');
+        showTab('herramientas-tabs', 'calc-ph');
+    });
+</script>
+</body>
+</html>
